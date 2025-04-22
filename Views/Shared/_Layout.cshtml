@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HomeBroker</title>
+   
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -11,25 +12,140 @@
 </head>
 <body>
     <header>
+
+           
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HomeBroker</a>
+                <div class="header-content">
+                    <img src="~/images/logo.png" width="30" height="30" alt="Logo" class="logo" />
+                </div>
+                <a class="navbar-brand" asp-area="" asp-controller="MinhaConta" asp-action="Index">HomeBroker</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Minha Conta</a>
+                            <ul class="dropdown-menu">
+                                <li><hr class="dropdown-divider">Minha Carteira</li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="MinhaConta" asp-action="carteira">Carteira</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="MinhaConta" asp-action="evolucao">Evolução</a></li>
+                                <li><a class="dropdown-item" href="#">Análise de Carteira</a></li>
+                                <li><a class="dropdown-item" href="#">Controle de Garantia</a></li>
+                                <li><hr class="dropdown-divider">Conta Investimento</li>
+                                <li><a class="dropdown-item" href="#">Saldo/Extrato</a></li>
+                                <li><a class="dropdown-item" href="#">Transferências</a></li>
+                                <li><hr class="dropdown-divider">Documentos</li>
+                                <li><a class="dropdown-item" href="#">Imposto de Renda</a></li>
+                                <li><a class="dropdown-item" href="#">Notas de negociação</a></li>
+                                <li><hr class="dropdown-divider">Ferramentas e plataformas</li>
+                                <li><a class="dropdown-item" href="#">Assinaturas de plataformas</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Produtos</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Portabilidade de investimentos</a></li>
+                                <li><hr class="dropdown-divider">Investimentos</li>
+                                <li><a class="dropdown-item" href="#">Renda Fixa</a></li>
+                                <li><a class="dropdown-item" href="#">Renda Variável</a></li>
+                                <li><a class="dropdown-item" href="#">Ofertas Públicas</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Atendimento</a>
+                            <ul class="dropdown-menu">
+                                <li><hr class="dropdown-divider">Investimentos</li>
+                                <li><a class="dropdown-item" href="#">Central de ajuda</a></li>
+                                <li><hr class="dropdown-divider">Custos e taxas</li>
+                                <li><a class="dropdown-item" href="#">Custos operacionais</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Área do Trader</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Início</a></li>
+                                <li><a class="dropdown-item" href="#">Estísticas</a></li>
+                                <li><a class="dropdown-item" href="#">Resumo Opercional</a></li>
+                                <li><a class="dropdown-item" href="#">AIA Score</a></li>
+                                <li><a class="dropdown-item" href="#">Gerenciamento de Riscos</a></li>
+                                <li><a class="dropdown-item" href="#">Clube Clear</a></li>
+                                <li><a class="dropdown-item" href="#">Educacional</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Home Broker</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Simples</a></li>
+                                <li><a class="dropdown-item" href="#">Avançado</a></li>
+                            </ul>
+                        </li>
+                        
+                      @*   <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MinhaConta" asp-action="Index">Início</a>
+                        </li> *@
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">@User.Claims.FirstOrDefault(z => z.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value</a>
+                            <ul class="dropdown-menu">
+                                <li><hr class="dropdown-divider">conta</li>
+                                <li><a class="dropdown-item" href="#">Noficações</a></li>
+                                <li><a class="dropdown-item" href="#">Dados Cadastrais</a></li>
+                                <li><a class="dropdown-item" href="#">Perfil de investimentos</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Logout", "Account")">Sair do portal</a></li>
+                            </ul>
+                        </li>
+                       @*  <li class="nav-item">
+                            @if (User.Identity != null && User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link text-dark">
+                                    Olá, @User.Claims.FirstOrDefault(z => z.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value!
+                                </a>
+                            }
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
-                        </li>
+                            @if (User.Identity != null && User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link text-dark" href="@Url.Action("Logout", "Account")">|&nbsp Sair</a>
+
+                            }
+                            else
+                            {
+                                <a class="nav-link text-dark" href="@Url.Action("Login", "Account")">Login</a>
+                            }
+                        </li> *@
                     </ul>
                 </div>
             </div>
         </nav>
+        @* <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Minha Aplicação</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @User.Claims.ToList().Where(z => z.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname").FirstOrDefault()?.Value.ToString()
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("Logout", "Account")">Logout</a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav> *@
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">

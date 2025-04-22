@@ -25,9 +25,15 @@ public class HomeController : Controller
        
         return View();
     }
+ 
+    public IActionResult Goodbye()
+    {
 
-    [Authorize]
-    //[Authorize(Policy = "Admin")]
+        return View();
+    }
+    
+
+    [Authorize(Policy = "Admin")]
     public IActionResult Admin()
     {
         var user = User.Identity;
@@ -37,8 +43,8 @@ public class HomeController : Controller
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    public IActionResult Error(string message)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(new ErrorViewModel {Message=message, RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
